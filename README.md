@@ -11,5 +11,5 @@ pip install scrapy
 * Ubuntu 14.4.0-67-generic
 
 ## Usage
-run scrpit using "python lizzy.py"
+run scrpit using `python lizzy.py`
 
