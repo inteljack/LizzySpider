@@ -9,7 +9,7 @@ class LizzySpider():
         self.filename = 'source_page.html'
 
     def log(self, entry):
-        filename = 'data.csv'
+        filename = 'data.json'
         try:
             file = open(filename, 'a')
         except IOError:
@@ -29,11 +29,12 @@ class LizzySpider():
         print 'Saved file: ' + self.filename
 
     def select_info(self, text):
-        price = Selector(text=text).xpath('//li[@class=$val]/span/text()', val='lvprice prc').extract_first()
-        title = Selector(text=text).xpath('//h3[@class=$val]/a/text()', val='lvtitle').extract_first()
-        no_bids = Selector(text=text).xpath('//li[@class=$val]/span/text()', val='lvformat').extract_first()
-        unit = Selector(text=text).xpath('//li[@class=$val]/span/b/text()', val='lvprice prc').extract_first()
+        price = Selector(text=text).xpath('//li[@class=$val]/span/text()', val='lvprice prc').extract()
+        title = Selector(text=text).xpath('//h3[@class=$val]/a/text()', val='lvtitle').extract()
+        no_bids = Selector(text=text).xpath('//li[@class=$val]/span/text()', val='lvformat').extract()
+        unit = Selector(text=text).xpath('//li[@class=$val]/span/b/text()', val='lvprice prc').extract()
 
+        # need a better way to organize output entries!!! help needed
         # Create a dictionary to store the scraped info
         scraped_info = {
             'product_title' : title,
@@ -41,7 +42,8 @@ class LizzySpider():
             'price_unit' : unit,
             'product_price' : price,
         }
-        # log entry to a log file
+
+        # log entries to a log file
         self.log(scraped_info)
 
     def scrap(self):
