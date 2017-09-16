@@ -13,3 +13,4 @@ pip install scrapy
 ## Usage
 run scrpit using "python lizzy.py"
 
+program generates/append data.json file for scrapped results
